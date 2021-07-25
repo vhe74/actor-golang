@@ -62,3 +62,195 @@ Goroutine 10 (running) created at:
 2021/07/25 11:29:44 Ending balance :  130
 Found 1 data race(s)
 exit status 66
+
+Using a chan to receive operations
+(sample for 20+ and 20- ops)
+➜  010-using-chan-for-sync git:(main) ✗ go run main.go 
+2021/07/25 11:59:43.262704 Starting Buffered Chan sample
+2021/07/25 11:59:43.262838 Action asked is :  plus
+2021/07/25 11:59:43.262840 The new balance is : 110
+2021/07/25 11:59:43.262865 Action asked is :  minus
+2021/07/25 11:59:43.262866 The new balance is : 100
+2021/07/25 11:59:43.263868 Action asked is :  plus
+2021/07/25 11:59:43.263870 The new balance is : 110
+2021/07/25 11:59:43.265150 Action asked is :  minus
+2021/07/25 11:59:43.265152 The new balance is : 100
+2021/07/25 11:59:43.266095 Action asked is :  plus
+2021/07/25 11:59:43.266097 The new balance is : 110
+2021/07/25 11:59:43.267114 Action asked is :  plus
+2021/07/25 11:59:43.267118 The new balance is : 120
+2021/07/25 11:59:43.269332 Action asked is :  minus
+2021/07/25 11:59:43.269336 The new balance is : 110
+2021/07/25 11:59:43.269338 Action asked is :  minus
+2021/07/25 11:59:43.269340 The new balance is : 100
+2021/07/25 11:59:43.269341 Action asked is :  minus
+2021/07/25 11:59:43.269343 The new balance is : 90
+2021/07/25 11:59:43.270342 Action asked is :  plus
+2021/07/25 11:59:43.270344 The new balance is : 100
+2021/07/25 11:59:43.270345 Action asked is :  plus
+2021/07/25 11:59:43.270346 The new balance is : 110
+2021/07/25 11:59:43.270347 Action asked is :  minus
+2021/07/25 11:59:43.270348 The new balance is : 100
+2021/07/25 11:59:43.271457 Action asked is :  minus
+2021/07/25 11:59:43.271459 The new balance is : 90
+2021/07/25 11:59:43.273580 Action asked is :  minus
+2021/07/25 11:59:43.273582 The new balance is : 80
+2021/07/25 11:59:43.274571 Action asked is :  plus
+2021/07/25 11:59:43.274573 The new balance is : 90
+2021/07/25 11:59:43.278212 Action asked is :  minus
+2021/07/25 11:59:43.278219 The new balance is : 80
+2021/07/25 11:59:43.278220 Action asked is :  plus
+2021/07/25 11:59:43.278222 The new balance is : 90
+2021/07/25 11:59:43.279259 Action asked is :  plus
+2021/07/25 11:59:43.279266 The new balance is : 100
+2021/07/25 11:59:43.279267 Action asked is :  plus
+2021/07/25 11:59:43.279269 The new balance is : 110
+2021/07/25 11:59:43.281583 Action asked is :  plus
+2021/07/25 11:59:43.281585 The new balance is : 120
+2021/07/25 11:59:43.282393 Action asked is :  minus
+2021/07/25 11:59:43.282399 The new balance is : 110
+2021/07/25 11:59:43.282400 Action asked is :  minus
+2021/07/25 11:59:43.282402 The new balance is : 100
+2021/07/25 11:59:43.282613 Action asked is :  plus
+2021/07/25 11:59:43.282620 The new balance is : 110
+2021/07/25 11:59:43.283656 Action asked is :  minus
+2021/07/25 11:59:43.283664 The new balance is : 100
+2021/07/25 11:59:43.286139 Action asked is :  plus
+2021/07/25 11:59:43.286143 The new balance is : 110
+2021/07/25 11:59:43.286819 Action asked is :  minus
+2021/07/25 11:59:43.286821 The new balance is : 100
+2021/07/25 11:59:43.288501 Action asked is :  plus
+2021/07/25 11:59:43.288504 The new balance is : 110
+2021/07/25 11:59:43.288864 Action asked is :  minus
+2021/07/25 11:59:43.288866 The new balance is : 100
+2021/07/25 11:59:43.290682 Action asked is :  plus
+2021/07/25 11:59:43.290685 The new balance is : 110
+2021/07/25 11:59:43.290686 Action asked is :  plus
+2021/07/25 11:59:43.290688 The new balance is : 120
+2021/07/25 11:59:43.290689 Action asked is :  plus
+2021/07/25 11:59:43.290690 The new balance is : 130
+2021/07/25 11:59:43.291967 Action asked is :  minus
+2021/07/25 11:59:43.291969 The new balance is : 120
+2021/07/25 11:59:43.291970 Action asked is :  plus
+2021/07/25 11:59:43.291971 The new balance is : 130
+2021/07/25 11:59:43.294036 Action asked is :  plus
+2021/07/25 11:59:43.294051 The new balance is : 140
+2021/07/25 11:59:43.294995 Action asked is :  minus
+2021/07/25 11:59:43.295003 The new balance is : 130
+2021/07/25 11:59:43.295055 Action asked is :  plus
+2021/07/25 11:59:43.295057 The new balance is : 140
+2021/07/25 11:59:43.299713 Action asked is :  minus
+2021/07/25 11:59:43.299727 The new balance is : 130
+2021/07/25 11:59:43.301889 Action asked is :  minus
+2021/07/25 11:59:43.301894 The new balance is : 120
+2021/07/25 11:59:43.303154 Action asked is :  minus
+2021/07/25 11:59:43.303159 The new balance is : 110
+2021/07/25 11:59:43.303160 Action asked is :  minus
+2021/07/25 11:59:43.303161 The new balance is : 100
+
+
+
+➜  010-using-chan-for-sync git:(main) ✗ go run main.go
+2021/07/25 12:19:47.886186 Starting Buffered Chan sample
+2021/07/25 12:19:48.436506 [ 500 ] Action asked is :   minus  balance :  110
+2021/07/25 12:19:49.003980 [ 1000 ] Action asked is :   plus  balance :  -50
+2021/07/25 12:19:49.563125 [ 1500 ] Action asked is :   minus  balance :  -30
+2021/07/25 12:19:50.141106 [ 2000 ] Action asked is :   plus  balance :  90
+2021/07/25 12:19:50.144910 current balance is : 100
+2021/07/25 12:19:52.146120 current balance is : 100
+2021/07/25 12:19:54.151159 current balance is : 100
+2021/07/25 12:19:56.156197 current balance is : 100
+2021/07/25 12:19:58.159312 current balance is : 100
+2021/07/25 12:20:00.159316 current balance is : 100
+2021/07/25 12:20:02.161422 Ending balance after :  100
+
+
+➜  010-using-chan-for-sync git:(main) ✗ go run main.go
+2021/07/25 12:20:56.877965 Starting Buffered Chan sample
+2021/07/25 12:20:56.901893 [ 500 ] Action asked is :   minus  balance :  390
+2021/07/25 12:20:56.928275 [ 1000 ] Action asked is :   plus  balance :  550
+2021/07/25 12:20:56.954009 [ 1500 ] Action asked is :   plus  balance :  810
+2021/07/25 12:20:56.978279 [ 2000 ] Action asked is :   minus  balance :  850
+2021/07/25 12:20:57.005410 [ 2500 ] Action asked is :   plus  balance :  650
+2021/07/25 12:20:57.029616 [ 3000 ] Action asked is :   plus  balance :  790
+2021/07/25 12:20:57.055536 [ 3500 ] Action asked is :   minus  balance :  990
+2021/07/25 12:20:57.082287 [ 4000 ] Action asked is :   minus  balance :  790
+2021/07/25 12:20:57.107424 [ 4500 ] Action asked is :   minus  balance :  590
+2021/07/25 12:20:57.133723 [ 5000 ] Action asked is :   plus  balance :  250
+2021/07/25 12:20:57.159831 [ 5500 ] Action asked is :   minus  balance :  330
+2021/07/25 12:20:57.185785 [ 6000 ] Action asked is :   plus  balance :  370
+2021/07/25 12:20:57.212170 [ 6500 ] Action asked is :   plus  balance :  170
+2021/07/25 12:20:57.236278 [ 7000 ] Action asked is :   minus  balance :  290
+2021/07/25 12:20:57.260544 [ 7500 ] Action asked is :   plus  balance :  590
+2021/07/25 12:20:57.285301 [ 8000 ] Action asked is :   plus  balance :  830
+2021/07/25 12:20:57.312614 [ 8500 ] Action asked is :   plus  balance :  990
+2021/07/25 12:20:57.340150 [ 9000 ] Action asked is :   minus  balance :  950
+2021/07/25 12:20:57.366398 [ 9500 ] Action asked is :   minus  balance :  1070
+2021/07/25 12:20:57.391493 [ 10000 ] Action asked is :   minus  balance :  1270
+2021/07/25 12:20:57.418776 [ 10500 ] Action asked is :   minus  balance :  1310
+2021/07/25 12:20:57.444968 [ 11000 ] Action asked is :   minus  balance :  1110
+2021/07/25 12:20:57.472330 [ 11500 ] Action asked is :   plus  balance :  1250
+2021/07/25 12:20:57.498653 [ 12000 ] Action asked is :   minus  balance :  1110
+2021/07/25 12:20:57.523857 [ 12500 ] Action asked is :   plus  balance :  1210
+2021/07/25 12:20:57.550046 [ 13000 ] Action asked is :   plus  balance :  1030
+2021/07/25 12:20:57.577209 [ 13500 ] Action asked is :   minus  balance :  890
+2021/07/25 12:20:57.603547 [ 14000 ] Action asked is :   minus  balance :  1410
+2021/07/25 12:20:57.628736 [ 14500 ] Action asked is :   minus  balance :  1150
+2021/07/25 12:20:57.653934 [ 15000 ] Action asked is :   minus  balance :  1270
+2021/07/25 12:20:57.679149 [ 15500 ] Action asked is :   minus  balance :  1210
+2021/07/25 12:20:57.705424 [ 16000 ] Action asked is :   minus  balance :  1310
+2021/07/25 12:20:57.729545 [ 16500 ] Action asked is :   minus  balance :  1370
+2021/07/25 12:20:57.754670 [ 17000 ] Action asked is :   plus  balance :  1270
+2021/07/25 12:20:57.780834 [ 17500 ] Action asked is :   plus  balance :  1570
+2021/07/25 12:20:57.806016 [ 18000 ] Action asked is :   plus  balance :  1590
+2021/07/25 12:20:57.832046 [ 18500 ] Action asked is :   minus  balance :  1730
+2021/07/25 12:20:57.857540 [ 19000 ] Action asked is :   minus  balance :  1790
+2021/07/25 12:20:57.883434 [ 19500 ] Action asked is :   plus  balance :  1810
+2021/07/25 12:20:57.908795 [ 20000 ] Action asked is :   plus  balance :  1810
+2021/07/25 12:20:57.935210 [ 20500 ] Action asked is :   plus  balance :  1810
+2021/07/25 12:20:57.961242 [ 21000 ] Action asked is :   plus  balance :  1590
+2021/07/25 12:20:57.986515 [ 21500 ] Action asked is :   minus  balance :  1630
+2021/07/25 12:20:58.012552 [ 22000 ] Action asked is :   minus  balance :  1570
+2021/07/25 12:20:58.038654 [ 22500 ] Action asked is :   plus  balance :  1430
+2021/07/25 12:20:58.064783 [ 23000 ] Action asked is :   minus  balance :  1710
+2021/07/25 12:20:58.089442 [ 23500 ] Action asked is :   plus  balance :  1830
+2021/07/25 12:20:58.115678 [ 24000 ] Action asked is :   minus  balance :  1470
+2021/07/25 12:20:58.142926 [ 24500 ] Action asked is :   plus  balance :  1450
+2021/07/25 12:20:58.170296 [ 25000 ] Action asked is :   minus  balance :  1510
+2021/07/25 12:20:58.195567 [ 25500 ] Action asked is :   minus  balance :  1470
+2021/07/25 12:20:58.221737 [ 26000 ] Action asked is :   plus  balance :  1210
+2021/07/25 12:20:58.247961 [ 26500 ] Action asked is :   minus  balance :  810
+2021/07/25 12:20:58.273339 [ 27000 ] Action asked is :   minus  balance :  710
+2021/07/25 12:20:58.299601 [ 27500 ] Action asked is :   plus  balance :  950
+2021/07/25 12:20:58.325909 [ 28000 ] Action asked is :   minus  balance :  1250
+2021/07/25 12:20:58.352223 [ 28500 ] Action asked is :   plus  balance :  990
+2021/07/25 12:20:58.377038 [ 29000 ] Action asked is :   minus  balance :  1150
+2021/07/25 12:20:58.404466 [ 29500 ] Action asked is :   minus  balance :  1250
+2021/07/25 12:20:58.430425 [ 30000 ] Action asked is :   plus  balance :  1090
+2021/07/25 12:20:58.455601 [ 30500 ] Action asked is :   plus  balance :  1030
+2021/07/25 12:20:58.482946 [ 31000 ] Action asked is :   minus  balance :  970
+2021/07/25 12:20:58.508298 [ 31500 ] Action asked is :   minus  balance :  930
+2021/07/25 12:20:58.534748 [ 32000 ] Action asked is :   plus  balance :  1030
+2021/07/25 12:20:58.560548 [ 32500 ] Action asked is :   plus  balance :  1090
+2021/07/25 12:20:58.587628 [ 33000 ] Action asked is :   minus  balance :  910
+2021/07/25 12:20:58.615163 [ 33500 ] Action asked is :   plus  balance :  1070
+2021/07/25 12:20:58.641386 [ 34000 ] Action asked is :   plus  balance :  990
+2021/07/25 12:20:58.666571 [ 34500 ] Action asked is :   plus  balance :  1010
+2021/07/25 12:20:58.694701 [ 35000 ] Action asked is :   minus  balance :  970
+2021/07/25 12:20:58.719995 [ 35500 ] Action asked is :   plus  balance :  830
+2021/07/25 12:20:58.745242 [ 36000 ] Action asked is :   plus  balance :  770
+2021/07/25 12:20:58.771644 [ 36500 ] Action asked is :   minus  balance :  910
+2021/07/25 12:20:58.797810 [ 37000 ] Action asked is :   minus  balance :  1190
+2021/07/25 12:20:58.824200 [ 37500 ] Action asked is :   minus  balance :  1310
+2021/07/25 12:20:58.850171 [ 38000 ] Action asked is :   minus  balance :  1350
+2021/07/25 12:20:58.876609 [ 38500 ] Action asked is :   plus  balance :  1650
+2021/07/25 12:20:58.903917 [ 39000 ] Action asked is :   minus  balance :  1770
+2021/07/25 12:20:58.938399 [ 39500 ] Action asked is :   minus  balance :  1290
+2021/07/25 12:20:59.065917 [ 40000 ] Action asked is :   minus  balance :  110
+2021/07/25 12:20:59.068283 current balance is : 100
+2021/07/25 12:21:01.068781 current balance is : 100
+2021/07/25 12:21:03.072764 current balance is : 100
+2021/07/25 12:21:05.073612 current balance is : 100
+2021/07/25 12:21:07.073874 current balance is : 100
+2021/07/25 12:21:09.078924 current balance is : 100
+2021/07/25 12:21:11.081879 Ending balance after :  100

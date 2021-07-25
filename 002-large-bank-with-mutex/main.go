@@ -45,7 +45,7 @@ func main() {
 	log.Println("Hello, Bank!")
 	log.Println("Initial balance : ", balance)
 	for i := 0; i < nbThread; i++ {
-		wg.Add(1)
+		wg.Add(2)
 		go Tplus()
 		go Tminus()
 	}
