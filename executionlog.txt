@@ -1,0 +1,30 @@
+
+➜  000-bank-without-sync git:(main) ✗ go run main.go
+2021/07/25 11:07:42 Hello, Bank!
+2021/07/25 11:07:42 Initial balance :  100
+2021/07/25 11:07:44 Ending balance :  90
+➜  000-bank-without-sync git:(main) ✗ go run main.go
+2021/07/25 11:07:49 Hello, Bank!
+2021/07/25 11:07:49 Initial balance :  100
+2021/07/25 11:07:51 Ending balance :  110
+
+=> inconsistent results
+
+
+➜  001-bank-with-mutex git:(main) ✗ go run main.go 
+2021/07/25 11:13:21 Hello, Bank!
+2021/07/25 11:13:21 Initial balance :  100
+2021/07/25 11:13:23 Ending balance :  100
+➜  001-bank-with-mutex git:(main) ✗ go run main.go
+2021/07/25 11:13:38 Hello, Bank!
+2021/07/25 11:13:38 Initial balance :  100
+2021/07/25 11:13:40 Ending balance :  100
+
+=> due to mutex, no race conditions and consistent results
+
+Increasing lock time : lock is a blocking op 
+➜  001-bank-with-mutex git:(main) ✗ go run main.go               
+2021/07/25 11:14:30 Hello, Bank!
+2021/07/25 11:14:30 Initial balance :  100
+2021/07/25 11:14:35 Ending balance :  100
+
