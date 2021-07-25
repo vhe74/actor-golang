@@ -28,3 +28,37 @@ Increasing lock time : lock is a blocking op
 2021/07/25 11:14:30 Initial balance :  100
 2021/07/25 11:14:35 Ending balance :  100
 
+
+Having 2x4 Threads (4000+ and 4000- ops) : 
+➜  002-large-bank-with-mutex git:(main) ✗ go run main.go
+2021/07/25 11:25:57 Hello, Bank!
+2021/07/25 11:25:57 Initial balance :  100
+2021/07/25 11:26:16 Ending balance :  130
+➜  002-large-bank-with-mutex git:(main) ✗ go run main.go
+2021/07/25 11:27:00 Hello, Bank!
+2021/07/25 11:27:00 Initial balance :  100
+2021/07/25 11:27:19 Ending balance :  50
+
+=> inconsistent even with mutex
+
+Checking  for races 
+➜  002-large-bank-with-mutex git:(main) ✗ go run -race main.go           
+2021/07/25 11:29:25 Hello, Bank!
+2021/07/25 11:29:25 Initial balance :  100
+==================
+WARNING: DATA RACE
+Read at 0x0000012315d0 by main goroutine:
+  main.main()
+      /Volumes/DATA/Code/actor-golang/002-large-bank-with-mutex/main.go:53 +0x18f
+
+Previous write at 0x0000012315d0 by goroutine 10:
+  main.Tminus()
+      /Volumes/DATA/Code/actor-golang/002-large-bank-with-mutex/main.go:35 +0x79
+
+Goroutine 10 (running) created at:
+  main.main()
+      /Volumes/DATA/Code/actor-golang/002-large-bank-with-mutex/main.go:50 +0x13c
+==================
+2021/07/25 11:29:44 Ending balance :  130
+Found 1 data race(s)
+exit status 66
