@@ -3,16 +3,8 @@ package main
 import (
 	"log"
 	"math/rand"
-	"sync"
 	"time"
 )
-
-const CHANSIZE = 5000    //buffer before blocking
-const THREADSIZE = 10000 //number of actions per thread
-const NBTHREAD = 1       //concurent increasing and decreasing threads
-const LOGSTOPS = 1       // log every n actions
-
-var balance int = 100
 
 // action payload struct
 type BalanceAction struct {
@@ -23,12 +15,10 @@ type BalanceAction struct {
 type Actor struct {
 	Inbox chan BalanceAction
 	Name  string
-	wg    sync.WaitGroup
 }
 
 func (A *Actor) Init(chansize int) {
 	A.Inbox = make(chan BalanceAction, chansize)
-	A.wg.Add(1)
 }
 
 func (A *Actor) Run() {
@@ -77,5 +67,4 @@ func main() {
 		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 	}
 	time.Sleep(3 * time.Second)
-	//actor1.wg.Wait()
 }
