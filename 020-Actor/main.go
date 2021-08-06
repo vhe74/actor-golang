@@ -13,8 +13,9 @@ type BalanceAction struct {
 }
 
 type Actor struct {
-	Inbox chan BalanceAction
-	Name  string
+	Inbox   chan BalanceAction
+	Name    string
+	balance int
 }
 
 func (A *Actor) Init(chansize int) {
@@ -27,11 +28,11 @@ func (A *Actor) Run() {
 		case action, ok := <-A.Inbox:
 			if ok {
 				if action.Kind == "plus" {
-					//balance += action.Amount
-					log.Println("[", A.Name, "] plus", action.Amount)
+					A.balance += action.Amount
+					log.Println("[", A.Name, "] plus", action.Amount, " Balance is now ", A.balance)
 				} else if action.Kind == "minus" {
-					//balance -= action.Amount
-					log.Println("[", A.Name, "] minus", action.Amount)
+					A.balance -= action.Amount
+					log.Println("[", A.Name, "] minus", action.Amount, " Balance is now ", A.balance)
 				}
 			} else {
 				log.Println("[", A.Name, "] Inbox closed")
@@ -41,30 +42,35 @@ func (A *Actor) Run() {
 	}
 }
 
+func (A *Actor) SetBalance(b int) { A.balance = b }
+
+func (A *Actor) GetBalance() int { return A.balance }
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 
 	log.Println("Starting !")
 	actor1 := &Actor{Name: "actor1"}
 	actor1.Init(20)
+	actor1.SetBalance(100)
+	log.Println("Initial balance : ", actor1.GetBalance())
 	log.Println(actor1.Name, " Ready !")
 
 	go actor1.Run()
 
-	for i := 1; i <= 10; i++ {
+	for i := 1; i <= 100; i++ {
 		action := BalanceAction{"plus", i} //rand.Intn(20)}
 		actor1.Inbox <- action
 		sleepTime := rand.Intn(5)
 		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 	}
 
-	time.Sleep(1 * time.Second)
-
-	for i := 1; i <= 40; i++ {
+	for i := 1; i <= 100; i++ {
 		action := BalanceAction{"minus", i} //rand.Intn(20)}
 		actor1.Inbox <- action
 		sleepTime := rand.Intn(5)
 		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 	}
 	time.Sleep(3 * time.Second)
+	log.Println("End, balance is now ", actor1.GetBalance())
 }
